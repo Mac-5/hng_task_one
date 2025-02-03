@@ -67,7 +67,7 @@ The API responds with a JSON object containing the following fields:
     "is_perfect": false,
     "properties": ["armstrong", "odd"],
     "digit_sum": 11,  // sum of its digits
-    "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371" //gotten from the numbers API
+    "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371"
 }
 ```
 ## Example Usage
@@ -87,7 +87,7 @@ Expected JSON response:
     "is_perfect": false,
     "properties": ["armstrong", "odd"],
     "digit_sum": 11,  // sum of its digits
-    "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371" //gotten from the numbers API
+    "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371"
 }
 
 ```
