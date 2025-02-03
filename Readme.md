@@ -26,7 +26,7 @@ This project provides a simple public API built using Go. The Number Classificat
 ### Running the Project Locally Follow these steps to set up and run the project:
 
 1. **Clone the repository:** 
- git clone [https://github.com/Mac-5/hng_task_one.git](https://github.com/Mac-5/hng_task_one.git)
+ git clone [https://github.com/Mac-5/hng_task_one](https://github.com/Mac-5/hng_task_one)
  
  2. **Navigate into the project directory:**
 ```
