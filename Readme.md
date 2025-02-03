@@ -41,12 +41,12 @@ This project provides a simple public API built using Go. The Number Classificat
 
 ### Endpoint URL
 
--   URL: `GET  `
+-   URL: `GET https://hng-task-one-ccwa.onrender.com/api/classify-number?number=371 `
 
 ### Request Format
 
 -   Method: `GET`
--   URL: `https://`
+-   URL: `https://hng-task-one-ccwa.onrender.com/api/classify-number?number=371`
 -   Headers:
     -   `Content-Type: application/json`
 
@@ -72,11 +72,11 @@ The API responds with a JSON object containing the following fields:
 ```
 ## Example Usage
 
-To interact with the API, send a `GET` request to the endpoint `/`.
+To interact with the API, send a `GET` request to the endpoint `/api/classify-number?number=371`.
 
 Use `curl` to test the API:
 ```sh
-curl -X GET https://hng-task-zero.onrender.com/
+curl -X GET https://hng-task-one-ccwa.onrender.com/api/classify-number?number=371
 ```
 
 Expected JSON response:
@@ -91,7 +91,6 @@ Expected JSON response:
 }
 
 ```
-
 ## Backlinks
 
 [hng-hire-golang-devs](https://hng.tech/hire/golang-developers)
