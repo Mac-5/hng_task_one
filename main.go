@@ -6,9 +6,10 @@ import (
 	"math"
 	"net/http"
 	"strconv"
+	"unicode"
 )
 
-// NumberInfo represents the JSON response structure
+// NumberInfo represents the JSON response structure for valid numbers
 type NumberInfo struct {
 	Number     int      `json:"number"`
 	IsPrime    bool     `json:"is_prime"`
@@ -16,6 +17,12 @@ type NumberInfo struct {
 	Properties []string `json:"properties"`
 	DigitSum   int      `json:"digit_sum"`
 	FunFact    string   `json:"fun_fact"`
+}
+
+// ErrorResponse represents the JSON response structure for errors
+type ErrorResponse struct {
+	Number string `json:"number"`
+	Error  bool   `json:"error"`
 }
 
 // isPrime checks if a number is prime
@@ -68,6 +75,23 @@ func sumOfDigits(n int) int {
 	}
 	return sum
 }
+func isAlphabetic(s string) bool {
+	for _, r := range s {
+		if !unicode.IsLetter(r) {
+			return false
+		}
+	}
+	return len(s) > 0
+}
+
+// isNumeric checks if a string is a valid integer
+func isNumeric(s string) bool {
+	if s == "" {
+		return false
+	}
+	_, err := strconv.Atoi(s)
+	return err == nil
+}
 
 // getFunFact fetches a fun fact from Numbers API
 func getFunFact(n int) string {
@@ -87,21 +111,37 @@ func getFunFact(n int) string {
 	return "No fun fact available"
 }
 
+// respondWithError sends a JSON error response
+func respondWithError(w http.ResponseWriter, numString string) {
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusBadRequest)
+	if err := json.NewEncoder(w).Encode(ErrorResponse{Number: numString, Error: true}); err != nil {
+		http.Error(w, "Failed to encode JSON response", http.StatusInternalServerError)
+	}
+}
+
+// classifyNumberHandler handles requests to /api/classify-number
 func classifyNumberHandler(w http.ResponseWriter, r *http.Request) {
-	// Get number from query parameters
-	queryValues := r.URL.Query()
-	numStr := queryValues.Get("number")
+	// Retrieve the 'number' query parameter
+	numStr := r.URL.Query().Get("number")
 
 	if numStr == "" {
-		http.Error(w, "Missing 'number' parameter", http.StatusBadRequest)
+		respondWithError(w, "missing")
 		return
 	}
 
-	num, err := strconv.Atoi(numStr)
-	if err != nil {
-		http.Error(w, "Invalid number", http.StatusBadRequest)
+	if isAlphabetic(numStr) {
+		respondWithError(w, "alphabet")
 		return
 	}
+
+	if !isNumeric(numStr) {
+		respondWithError(w, "invalid")
+		return
+	}
+
+	num, _ := strconv.Atoi(numStr)
 
 	properties := []string{}
 	if isPrime(num) {
@@ -132,7 +172,6 @@ func classifyNumberHandler(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(response); err != nil {
 		http.Error(w, "Failed to encode JSON response", http.StatusInternalServerError)
 	}
-
 }
 
 func main() {
