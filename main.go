@@ -95,7 +95,7 @@ func isNumeric(s string) bool {
 
 // getFunFact fetches a fun fact from Numbers API
 func getFunFact(n int) string {
-	resp, err := http.Get(fmt.Sprintf("http://numbersapi.com/%d?json", n))
+	resp, err := http.Get(fmt.Sprintf("http://numbersapi.com/%d/math?json", n))
 	if err != nil {
 		return "Could not fetch fun fact"
 	}
