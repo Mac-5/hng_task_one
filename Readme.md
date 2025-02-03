@@ -57,7 +57,7 @@ The API responds with a JSON object containing the following fields:
 - number (integer): The input number.
 - is_prime (boolean): Indicates if the number is prime.
 - is_perfect (boolean): Indicates if the number is a perfect number.
-- properties (array of strings): A list of properties the number possesses (e.g., "prime", "perfect", "armstrong", "even", "odd").
+- properties (array of strings): A list of properties the number possesses (e.g.,"armstrong", "even", "odd").
 - digit_sum (integer): The sum of the number's digits.
 - fun_fact (string): An interesting fact about the number.
 ```json
