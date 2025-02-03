@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/rs/cors"
 	"math"
 	"net/http"
 	"strconv"
@@ -175,9 +176,29 @@ func classifyNumberHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/api/classify-number", classifyNumberHandler)
+
+	//http.HandleFunc("/api/classify-number", classifyNumberHandler)
+	//fmt.Println("Server started on :8080")
+	//if err := http.ListenAndServe(":8080", nil); err != nil {
+	//	fmt.Println("Server failed to start:", err)
+	//}
+	mux := http.NewServeMux()
+	mux.HandleFunc("/api/classify-number", classifyNumberHandler)
+
+	// Configure CORS
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"}, // Allow all origins
+		AllowedMethods:   []string{http.MethodGet, http.MethodPost, http.MethodOptions},
+		AllowedHeaders:   []string{"Content-Type"},
+		AllowCredentials: true,
+	})
+
+	// Wrap the mux with the CORS middleware
+	handler := c.Handler(mux)
+
 	fmt.Println("Server started on :8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":8080", handler); err != nil {
 		fmt.Println("Server failed to start:", err)
 	}
+
 }
