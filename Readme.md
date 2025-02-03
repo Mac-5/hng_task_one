@@ -66,7 +66,7 @@ The API responds with a JSON object containing the following fields:
     "is_prime": false,
     "is_perfect": false,
     "properties": ["armstrong", "odd"],
-    "digit_sum": 11,  // sum of its digits
+    "digit_sum": 11,  
     "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371"
 }
 ```
@@ -86,7 +86,7 @@ Expected JSON response:
     "is_prime": false,
     "is_perfect": false,
     "properties": ["armstrong", "odd"],
-    "digit_sum": 11,  // sum of its digits
+    "digit_sum": 11,
     "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371"
 }
 
